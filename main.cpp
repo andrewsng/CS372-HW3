@@ -1,8 +1,30 @@
+// main.cpp
+// Andrew S. Ng
+// Created: 2021-02-21
+// 
+// For CS 372 Spring 2021
+// Modern C++ Topic
+
 #include <glad/glad.h>
 #include <GLFW/glfw3.h>
 
 #include <iostream>
 
+
+////////////////////////////////////////////////////////////////////////
+//                                                                    //
+// This file was copied from when I was following an OpenGL tutorial. //
+// One of the "minor but useful" topics that stuck out to me was the  //
+// new string literals that were added in C++11, especially the raw   //
+// string literals. I noticed this because I remembered how bad it    //
+// felt to write inline GLSL shaders the way the tutorial showed, as  //
+// it required excessive amounts of double quotes and newlines, but I //
+// was able to clean all those up using the new raw string literals.  //
+//                                                                    //
+////////////////////////////////////////////////////////////////////////
+
+
+// ---- OLD GLSL Shaders using old string literals ---- //
 
 const char * vertexShaderSourceOLD = 
 "#version 460 core\n"
@@ -20,6 +42,8 @@ const char * fragmentShaderSourceOLD =
 "   FragColor = vec4(0.1f, 0.9f, 0.6f, 1.0f);\n"
 "}\0";
 
+
+// ---- NEW GLSL Shaders using raw string literals ---- //
 
 const char * vertexShaderSourceNEW = R"vert(
 
@@ -43,6 +67,10 @@ void main()
 
 )frag";
 
+
+
+
+// ---- Untouched code from OpenGL tutorial ---- //
 
 void framebuffer_size_callback(GLFWwindow * window, int width, int height);
 void processInput(GLFWwindow * window);
