@@ -4,7 +4,7 @@
 #include <iostream>
 
 
-const char * vertexShaderSource = 
+const char * vertexShaderSourceOLD = 
 "#version 460 core\n"
 "layout (location = 0) in vec3 aPos;\n"
 "void main()\n"
@@ -12,14 +12,36 @@ const char * vertexShaderSource =
 "   gl_Position = vec4(aPos.x, aPos.y, aPos.z, 1.0);\n"
 "}\0";
 
-
-const char * fragmentShaderSource =
+const char * fragmentShaderSourceOLD =
 "#version 460 core\n"
 "out vec4 FragColor;\n"
 "void main()\n"
 "{\n"
-"   FragColor = vec4(1.0f, 0.5f, 0.2f, 1.0f);\n"
+"   FragColor = vec4(0.1f, 0.9f, 0.6f, 1.0f);\n"
 "}\0";
+
+
+const char * vertexShaderSourceNEW = R"vert(
+
+#version 460 core
+layout (location = 0) in vec3 aPos;
+void main()
+{
+    gl_Position = vec4(aPos.x, aPos.y, aPos.z, 1.0);
+}
+
+)vert";
+
+const char * fragmentShaderSourceNEW = R"frag(
+
+#version 460 core
+out vec4 FragColor;
+void main()
+{
+    FragColor = vec4(0.1f, 0.9f, 0.6f, 1.0f);
+}
+
+)frag";
 
 
 void framebuffer_size_callback(GLFWwindow * window, int width, int height);
@@ -71,7 +93,7 @@ int main()
 
     unsigned int vertexShader;
     vertexShader = glCreateShader(GL_VERTEX_SHADER);
-    glShaderSource(vertexShader, 1, &vertexShaderSource, NULL);
+    glShaderSource(vertexShader, 1, &vertexShaderSourceNEW, NULL);
     glCompileShader(vertexShader);
     int success;
     char infoLog[512];
@@ -84,7 +106,7 @@ int main()
 
     unsigned int fragmentShader;
     fragmentShader = glCreateShader(GL_FRAGMENT_SHADER);
-    glShaderSource(fragmentShader, 1, &fragmentShaderSource, NULL);
+    glShaderSource(fragmentShader, 1, &fragmentShaderSourceNEW, NULL);
     glCompileShader(fragmentShader);
     glGetShaderiv(fragmentShader, GL_COMPILE_STATUS, &success);
     if (!success)
@@ -112,7 +134,7 @@ int main()
     {
         processInput(window);
 
-        glClearColor(0.4f, 0.95f, 0.6f, 1.0f);
+        glClearColor(0.4f, 0.4f, 0.6f, 1.0f);
         glClear(GL_COLOR_BUFFER_BIT);
 
         glUseProgram(shaderProgram);
